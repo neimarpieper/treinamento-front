@@ -4,7 +4,7 @@
     <v-app-bar
       app
       class="elevation-0"
-      color="white"
+      color="green"
     >
       <div class="d-flex align-center">
         <v-img
@@ -13,7 +13,7 @@
           class="shrink mr-1"
           contain
           transition="scale-transition"
-          width="45"
+          width="40"
           @click="$router.currentRoute.path !== '/inicio'
             ? $router.push('/inicio')
             : ''"
@@ -26,7 +26,7 @@
             ? $router.push('/inicio')
             : ''"
         >
-          Treinamento
+          Treinamentos Online
         </v-toolbar-title>
       </div>
 
@@ -164,9 +164,14 @@ export default {
       : '',
     links: [
       {
-        icone: 'mdi-plus',
+        icone: 'mdi-cart',
         nome: 'Cadastro de Produtos',
         path: '/cadastro/produto'
+      },
+      {
+        icone: 'mdi-account',
+        nome: 'Cadastro de Usuarios',
+        path: '/cadastro/usuario'
       }
     ],
     nome: localStorage.getItem('treinamento:nome')

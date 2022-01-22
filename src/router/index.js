@@ -21,6 +21,11 @@ const routes = [
         path: 'cadastro/produto',
         name: 'Pagina Cadastro de Produto',
         component: () => import('@/views/produto/')
+      },
+      {
+        path: 'cadastro/usuario',
+        name: 'Pagina Cadastro de Usuário',
+        component: () => import('@/views/usuario/')
       }
     ],
     beforeEnter: (to, from, next) => localStorage.getItem('treinamento:token') ? next() : next('/login')

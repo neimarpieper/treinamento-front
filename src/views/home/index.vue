@@ -13,7 +13,7 @@
         <v-img
           :src="logo"
           height="auto"
-          max-width="250"
+          max-width="350"
           style="opacity: 1;"
         />
       </v-col>
@@ -38,7 +38,7 @@ export default {
 
   data () {
     return {
-      logo: require('@/assets/logo.png')
+      logo: require('@/assets/treinamento.png')
     }
   }
 }

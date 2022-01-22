@@ -20,9 +20,9 @@
         class="grey lighten-3"
       >
         <span class="title ml-4">
-          Produtos |
+          Usuarios |
         </span>
-        Listagem e manutenção de produtos
+        Listagem e manutenção de usuários
       </v-col>
     </v-row>
 
@@ -109,7 +109,7 @@
           dense
         >
           <v-card-title class="py-1">
-            Inserir Produto
+            {{ controle.inserir ? "Inserir" : "Alterar" }} Usuario
             <v-spacer />
             <v-icon
               color="error"
@@ -154,72 +154,70 @@
                   </v-col>
                   <v-col
                     cols="12"
+                    lg="3"
+                    md="3"
+                    xs="12"
+                  >
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="Nome"
+                      rules="required"
+                      vid="nome"
+                    >
+                      <v-text-field
+                        v-model="formulario.nome"
+                        :error-messages="errors"
+                        :hide-details="!errors.length"
+                        :disabled="controle.visualizar"
+                        dense
+                        label="Nome"
+                        outlined
+                      />
+                    </validation-provider>
+                  </v-col>
+                  <v-col
+                    cols="12"
+                    lg="3"
+                    md="3"
+                    xs="12"
+                  >
+                    <validation-provider
+                      v-slot="{ errors }"
+                      name="Email"
+                      rules="required"
+                      vid="email"
+                    >
+                      <v-text-field
+                        v-model.number="formulario.email"
+                        :error-messages="errors"
+                        :hide-details="!errors.length"
+                        :disabled="controle.visualizar"
+                        dense
+                        label="Email"
+                        outlined
+                      />
+                    </validation-provider>
+                  </v-col>
+                  <v-col
+                    cols="12"
                     lg="5"
                     md="5"
                     xs="12"
                   >
                     <validation-provider
                       v-slot="{ errors }"
-                      name="Descrição"
+                      name="Senha"
                       rules="required"
-                      vid="descricao"
+                      vid="senha"
                     >
                       <v-text-field
-                        v-model="formulario.descricao"
-                        :error-messages="errors"
-                        :hide-details="!errors.length"
-                        :disabled="controle.visualizar"
-                        dense
-                        label="Descrição"
-                        outlined
-                      />
-                    </validation-provider>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    lg="3"
-                    md="3"
-                    xs="12"
-                  >
-                    <validation-provider
-                      v-slot="{ errors }"
-                      name="Quantidade"
-                      rules="required"
-                      vid="quantidade"
-                    >
-                      <v-text-field
-                        v-model.number="formulario.quantidade"
-                        v-mask="'#####'"
+                        v-model.number="formulario.senha"
                         :error-messages="errors"
                         :hide-details="!errors.length"
                         :disabled="controle.visualizar"
                         clearable
                         dense
-                        label="Quantidade"
-                        outlined
-                      />
-                    </validation-provider>
-                  </v-col>
-                  <v-col
-                    cols="12"
-                    lg="3"
-                    md="3"
-                    xs="12"
-                  >
-                    <validation-provider
-                      v-slot="{ errors }"
-                      name="Valor"
-                      rules="required"
-                      vid="valor"
-                    >
-                      <v-text-field
-                        v-model.number="formulario.valor"
-                        :error-messages="errors"
-                        :hide-details="!errors.length"
-                        :disabled="controle.visualizar"
-                        clearable
-                        dense
-                        label="Valor"
+                        label="Senha"
                         outlined
                       />
                     </validation-provider>
@@ -274,7 +272,7 @@ import loading from '../../components/loading.vue'
 export default {
   components: { loading },
 
-  name: 'PaginaCadastroDeProdutos',
+  name: 'PaginaCadastroDeUsuarios',
 
   /**
    * @descricao data é onde declaramos as variaveis que serão utilizadas dentro do componente
@@ -296,24 +294,24 @@ export default {
         width: 100
       },
       {
-        text: 'Descrição',
+        text: 'Nome',
         align: 'start',
         sortable: true,
-        value: 'descricao',
+        value: 'nome',
         width: 200
       },
       {
-        text: 'Quantidade',
+        text: 'Email',
         align: 'end',
         sortable: true,
-        value: 'quantidade',
+        value: 'email',
         width: 150
       },
       {
-        text: 'Valor',
-        align: 'end',
+        text: 'Senha',
+        align: 'start',
         sortable: true,
-        value: 'valor',
+        value: 'senha',
         width: 150
       },
       {}
@@ -332,9 +330,9 @@ export default {
     },
     formulario: {
       id: null,
-      descricao: null,
-      quantidade: null,
-      valor: null
+      nome: null,
+      email: null,
+      senha: null
     },
     search: ''
   }),
@@ -349,9 +347,9 @@ export default {
 
   computed: {
     /**
-     * ...mapState acessa variaveis declaradas no STATE.JS do modulo registrado como paginaCadastroProduto
+     * ...mapState acessa variaveis declaradas no STATE.JS do modulo registrado como paginaCadastroUsuario
      */
-    ...mapState('paginaCadastroProduto', [
+    ...mapState('paginaCadastroUsuario', [
       'registros'
     ])
   },
@@ -360,7 +358,7 @@ export default {
     /**
      * ...mapActions acessa o modulo registrado permitindo a chamada das funções das ACTIONS.JS exportadas
      */
-    ...mapActions('paginaCadastroProduto', [
+    ...mapActions('paginaCadastroUsuario', [
       'listar',
       'exibir',
       'excluir',
@@ -401,9 +399,9 @@ export default {
       if (res && !res.erro) {
         this.formulario = {
           id: res.id || null,
-          descricao: res.descricao || null,
-          quantidade: res.quantidade || null,
-          valor: res.valor || null
+          nome: res.nome || null,
+          email: res.email || null,
+          senha: res.senha || null
         }
       }
 
@@ -451,9 +449,9 @@ export default {
 
         const form = {
           id: this.formulario.id || null,
-          descricao: this.formulario.descricao || null,
-          quantidade: Number(this.formulario.quantidade) || null,
-          valor: Number(this.formulario.valor) || null
+          nome: this.formulario.nome || null,
+          email: this.formulario.email || null,
+          senha: this.formulario.senha || null
         }
         let res
 
@@ -489,9 +487,9 @@ export default {
       this.exibirFormulario = false
       this.formulario = {
         id: null,
-        descricao: null,
-        quantidade: null,
-        valor: null
+        nome: null,
+        email: null,
+        senha: null
       }
       this.controle = {
         inserir: false,

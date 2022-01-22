@@ -2,7 +2,7 @@ import axios from '@/plugins/axios'
 
 export const listar = async ({ commit }, filtros) => {
   try {
-    const res = await axios.get('/produto', filtros)
+    const res = await axios.get('/usuario', filtros)
 
     if (res && !res.data.erro) commit('registros', res.data)
 
@@ -14,7 +14,7 @@ export const listar = async ({ commit }, filtros) => {
 
 export const exibir = async ({ commit }, id) => {
   try {
-    const res = await axios.get('/produto/' + id)
+    const res = await axios.get('/usuario/' + id)
 
     return res.data
   } catch (error) {
@@ -24,7 +24,7 @@ export const exibir = async ({ commit }, id) => {
 
 export const excluir = async ({ commit }, id) => {
   try {
-    const res = await axios.delete('/produto/' + id)
+    const res = await axios.delete('/usuario/' + id)
 
     return res.data
   } catch (error) {
@@ -34,7 +34,7 @@ export const excluir = async ({ commit }, id) => {
 
 export const salvar = async ({ commit }, dados) => {
   try {
-    const res = await axios.post('/produto', dados)
+    const res = await axios.post('/usuario', dados)
 
     return res.data
   } catch (error) {
@@ -44,7 +44,7 @@ export const salvar = async ({ commit }, dados) => {
 
 export const editar = async ({ commit }, dados) => {
   try {
-    const res = await axios.put('/produto', dados)
+    const res = await axios.put('/usuario', dados)
 
     return res.data
   } catch (error) {
